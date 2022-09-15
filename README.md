@@ -1,1 +1,2 @@
 # palace-web-app
+This app is created to manage the Palace Cleaning Contractors, LLC administration. This company performs property painting and cleaning services as well as carpet cleaning and restoration. This application helps them to manage their employees (payments and orders) and properties (invoices and orders), facilitating more effective communication between the company, properties, and employees.  
