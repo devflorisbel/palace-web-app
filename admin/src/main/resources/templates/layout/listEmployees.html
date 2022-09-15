@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>List of Employees</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <section th:fragment="listEmployees" id="employees">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{bar.employees}]]</h4>
+                            </div>
+                            <div th:if="${employee != null and !employee.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{employee.first-name}"></th>
+                                            <th th:text="#{employee.address}"></th>
+                                            <th th:text="#{employee.city}"></th>
+                                            <th th:text="#{employee.state}"></th>
+                                            <th th:text="#{employee.zipcode}"></th>
+                                            <th th:text="#{employee.country}"></th>
+                                            <th th:text="#{employee.email}"></th>
+                                            <th th:text="#{employee.phone-number}"></th>
+                                            <th th:text="#{employee.service}"></th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="employee, cont : ${employee}">
+                                            <td>[[${cont.count}]]</td>
+                                            <td>[[${employee.firstname} + ' ' + ${employee.lastname}]]</td>
+                                            <td>[[${employee.address}]]</td>
+                                            <td>[[${employee.city}]]</td>
+                                            <td>[[${employee.st}]]</td>
+                                            <td>[[${employee.zipcode}]]</td>
+                                            <td>[[${employee.country}]]</td>
+                                            <td>[[${employee.email}]]</td>
+                                            <td>[[${employee.phonenumber}]]</td>
+                                            <td th:each="service : ${service}" th:if="${service.id_service == employee.id_service}"                     
+                                                th:text="${service.service_name}"></td>
+                                            <td>
+                                                <a class="btn btn-secondary" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/edit/} + ${employee.idemployee}">
+                                                    <i class="fas fa-angle-double-right">[[#{action.edit}]]</i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-dark" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/delete(idemployee=${employee.idemployee})}">
+                                                    <i class="fas fa-angle-double-right">[[#{action.delete}]]</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${employee == null or employee.empty}">
+                                <span th:text="">List Empty</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

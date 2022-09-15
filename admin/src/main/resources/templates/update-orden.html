@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Order</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="layout/template :: header"></header>
+        <h2 th:text="#{orden.form}"></h2>
+        <a th:href='@{/ordenes}' th:text="#{action.return}"></a>
+        <br/>
+        <!-- form -->
+        <form th:action='@{/save-orden}' method="post" th:object='${orden}'>
+            <input type="hidden" name="id_orden" th:field='*{id_orden}'/>
+            <br/>
+            <input type="hidden" name="id_property" th:field='*{id_property}'/>
+            <span th:if="${#fields.hasErrors('id_property')}" th:errors="*{id_property}">Error Property</span>
+            <br/>
+
+            <label for="po" th:text="#{orden.po}"></label>
+            <input type="text" name="po" th:field='*{po_orden}'/>
+            <span th:if="${#fields.hasErrors('po_orden')}" th:errors="*{po_orden}">Error PO/WTN</span>
+            <br/>
+            <input type="text" name="unit" th:field='*{po_orden}'/>
+            <label for="unit" th:text="#{unit.number}"></label>
+            
+            <span th:if="${#fields.hasErrors('id_unit')}" th:errors="*{id_unit}">Error Unit number</span>
+            <br/>
+
+            <label for="submit_date" th:text="#{orden.submit_date}"></label>
+            <input type="text" name="submit_date" th:field='*{submit_date}'/>
+            <span th:if="${#fields.hasErrors('submit_date')}" th:errors="*{submit_date}">Error Submit Date</span>
+            <br/>
+
+            <label for="scheduled_date" th:text="#{orden.scheduled_date}"></label>
+            <input type="text" name="scheduled_date" th:field='*{scheduled_date}'/>
+            <span th:if="${#fields.hasErrors('scheduled_date')}" th:errors="*{scheduled_date}">Error scheduled_date</span>
+            <br/>
+
+            <label for="limit_date" th:text="#{orden.limit_date}"></label>
+            <input type="text" name="limit_date" th:field='*{limit_date}'/>
+            <span th:if="${#fields.hasErrors('limit_date')}" th:errors="*{limit_date}">Error limit_date</span>
+            <br/>
+
+            <label for="observations" th:text="#{orden.observations}"></label>
+            <input type="text" name="observations" th:field='*{observations}'/>
+            <span th:if="${#fields.hasErrors('observations')}" th:errors="*{observations}">Error observations</span>
+            <br/>
+
+            <input type="submit" name="save" th:value="#{action.save}"/>
+        </form>
+        
+        
+        <footer th:replace="layout/template :: footer"></footer>
+
+    </body>
+</html>

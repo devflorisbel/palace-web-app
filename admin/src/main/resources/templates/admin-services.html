@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Admin Service</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <header th:replace="layout/template :: header"></header>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/add-service}" th:text="#{service.add}"></a>
+        <div th:if="${servicio != null and !servicio.empty}">
+            <table border="1">
+                <tr>
+                    <th th:text="#{service.name}"></th>
+                    <th th:text="#{service.state}"></th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
+                </tr>
+                <tr th:each='servicio : ${servicio}'>
+                    <td th:text="${servicio.service_name}"></td>
+                    <td th:text="${servicio.service_state}"></td>
+                    <td><a th:href="@{/edit-service/} + ${servicio.id_service}" th:text='Edit'/></td>
+                    <td><a th:href="@{/delete-service(id_service=${servicio.id_service})}" th:text='delete'/></td>
+                </tr>
+            </table>
+        </div>
+
+        <footer th:replace="layout/template :: footer"></footer>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Service</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="layout/template :: header"></header>
+        <h2 th:text="#{service.form}"></h2>
+        <a th:href='@{/services}' th:text="#{action.return}"></a>
+        <br/>
+        <!-- form -->
+        <form th:action='@{/save-service}' method="post" th:object='${servicio}'>
+            <input type="hidden" name="id_service" th:field='*{id_service}'/>
+            <br/>
+
+            <label for="name" th:text="#{service.name}"></label>
+            <input type="text" name="name" th:field='*{service_name}'/>
+            <span th:if="${#fields.hasErrors('service_name')}" th:errors="*{service_name}">Error Name</span>
+            <br/>
+
+            <label for="state" th:text="#{service.state}"></label>
+            <input type="text" name="state" th:field='*{service_state}'/>
+            <span th:if="${#fields.hasErrors('service_state')}" th:errors="*{service_state}">Error Address</span>
+            <br/>
+
+            <input type="submit" name="save" th:value="#{action.save}"/>
+        </form>
+        <footer th:replace="layout/template :: footer"></footer>
+
+    </body>
+</html>

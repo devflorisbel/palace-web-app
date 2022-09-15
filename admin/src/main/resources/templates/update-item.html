@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Item</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="layout/template :: header"></header>
+        <h2 th:text="#{item.form}"></h2>
+        <a th:href='@{/items}' th:text="#{action.return}"></a>
+        <br/>
+        <!-- form -->
+        <form th:action='@{/save-item}' method="post" th:object='${item}'>
+            <input type="hidden" name="id_item" th:field='*{id_item}'/>
+            <br/>
+
+            <label for="name" th:text="#{item.name}"></label>
+            <input type="text" name="name" th:field='*{item_name}'/>
+            <span th:if="${#fields.hasErrors('item_name')}" th:errors="*{item_name}">Error Name</span>
+            <br/>
+
+            <label for="description" th:text="#{item.description}"></label>
+            <input type="text" name="description" th:field='*{item_description}'/>
+            <span th:if="${#fields.hasErrors('item_description')}" th:errors="*{item_description}">Error Description</span>
+            <br/>
+
+            <label for="rate" th:text="#{item.rate}"></label>
+            <input type="text" name="rate" th:field='*{item_rate}'/>
+            <span th:if="${#fields.hasErrors('item_rate')}" th:errors="*{item_rate}">Error Rate</span>
+            <br/>
+
+            <label for="property" th:text="#{item.property}"></label>
+            <select th:field="*{id_property}">
+                <option th:each="property : ${property}" th:value="${property.id_property}" th:text="${property.property_name}">
+                </option>
+            </select>
+            <span th:if="${#fields.hasErrors('id_property')}" th:errors="*{id_property}">Error Property</span>
+            <br/>
+
+            <input type="submit" name="save" th:value="#{action.save}"/>
+        </form>
+        <footer th:replace="layout/template :: footer"></footer>
+
+    </body>
+</html>

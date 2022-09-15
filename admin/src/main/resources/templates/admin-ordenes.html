@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Admin Orders</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <header th:replace="layout/template :: header"></header>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/create-orden}" th:text="#{orden.add}"></a>
+        <div th:if="${orden != null and !orden.empty}">
+            <table border="1">
+                <tr>
+                    <th th:text="#{orden.property}"></th>
+                    <th th:text="#{orden.po}"></th>
+                    <th th:text="#{orden.unit}"></th>
+                    <th th:text="#{orden.beds}"></th>
+                    <th th:text="#{orden.baths}"></th>
+                    <th th:text="#{orden.submit_date}"></th>
+                    <th th:text="#{orden.scheduled_date}"></th>
+                    <th th:text="#{orden.limit_date}"></th>
+                    <th th:text="#{orden.observations}"></th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
+                </tr>
+                <tr th:each="orden : ${orden}">
+                    <td th:each="property : ${property}" th:if="${property.id_property == orden.id_property}"                     
+                        th:text="${property.property_name}"></td>
+                    <th th:text="${orden.po_orden}"></th>
+                    <td th:each="unit : ${unit}" th:if="${unit.id_unit == orden.id_unit}"                     
+                        th:text="${unit.unit_number}"></td>
+                    <td th:each="unit : ${unit}" th:if="${unit.id_unit == orden.id_unit}"                     
+                        th:text="${unit.unit_bed}"></td>
+                    <td th:each="unit : ${unit}" th:if="${unit.id_unit == orden.id_unit}"                     
+                        th:text="${unit.unit_bath}"></td>
+                    <td th:text="${orden.submit_date}"></td>
+                    <td th:text="${orden.scheduled_date}"></td>
+                    <td th:text="${orden.limit_date}"></td>
+                    <td th:text="${orden.observations}"></td>
+                    <td><a th:href="@{/edit-orden/} + ${orden.id_orden}" th:text='Edit'/></td>
+                    <td><a th:href="@{/delete-orden(id_orden=${orden.id_orden})}" th:text='delete'/></td>
+                </tr>
+            </table>
+        </div>    
+
+        <footer th:replace="layout/template :: footer"></footer>
+
+    </body>
+</html>

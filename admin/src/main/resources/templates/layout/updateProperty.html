@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Property</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="updateProperty" id="updateProperty">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{property.form}]]</h4>
+                            </div>
+                        </div>
+                        <!-- form -->
+                        <form th:action='@{/save-property}' method="post" th:object='${property}'>
+                            <input type="hidden" name="id_property" th:field='*{id_property}'/>
+                            <br/>
+
+                            <label for="name" th:text="#{property.name}" class="form-label"></label>
+                            <input type="text" name="name" th:field='*{property_name}' class="form-control"/>
+                            <span th:if="${#fields.hasErrors('property_name')}" th:errors="*{property_name}">Error Name</span>
+                            <br/>
+
+                            <label for="address" th:text="#{property.address}" class="form-label"></label>
+                            <input type="text" name="address" th:field='*{property_address}' class="form-control"/>
+                            <span th:if="${#fields.hasErrors('property_address')}" th:errors="*{property_address}">Error Address</span>
+                            <br/>
+
+                            <label for="city" th:text="#{property.city}" class="form-label"></label>
+                            <input type="text" name="city" th:field='*{property_city}' class="form-control"/>
+                            <span th:if="${#fields.hasErrors('property_city')}" th:errors="*{property_city}">Error City</span>
+                            <br/>
+
+                            <label for="property_state" th:text="#{property.state}" class="form-label"></label>
+                            <input type="text" name="st" th:field='*{property_state}' class="form-control"/>
+                            <span th:if="${#fields.hasErrors('property_state')}" th:errors="*{property_state}">Error State</span>
+                            <br/>
+
+                            <label for="property_zipcode" th:text="#{property.zipcode}" class="form-label"></label>
+                            <input type="text" name="property_zipcode" th:field='*{property_zipcode}' class="form-control"/>
+                            <span th:if="${#fields.hasErrors('property_zipcode')}" th:errors="*{property_zipcode}">Error Zip Code</span>
+                            <br/>
+
+                            <label for="email1" th:text="#{property.email1}" class="form-label"></label>
+                            <input type="text" name="email1" th:field='*{property_email1}' class="form-control"/>
+                            <span th:if="${#fields.hasErrors('property_email1')}" th:errors="*{property_email1}">Error email</span>
+                            <br/>
+
+                            <label for="email1" th:text="#{property.email2}" class="form-label"></label>
+                            <input type="text" name="email1" th:field='*{property_email2}' class="form-control"/>
+                            <span th:if="${#fields.hasErrors('property_email2')}" th:errors="*{property_email2}">Error email</span>
+                            <br/>
+
+                            <label for="phonenumber" th:text="#{property.phone-number}" class="form-label"></label>
+                            <input type="tel" name="phonenumber" th:field='*{property_phone}' class="form-control"/>
+                            <span th:if="${#fields.hasErrors('property_phone')}" th:errors="*{property_phone}">Error Phone Number</span>
+                            <br/>
+
+                            <input type="submit" name="save" th:value="#{action.save}" class="btn btn-primary"/>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

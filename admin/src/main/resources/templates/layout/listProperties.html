@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>List of Properties</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <section th:fragment="listProperties" id="listProperties">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{bar.properties}]]</h4>
+                            </div>
+                            <div th:if="${property != null and !property.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{property.name}"></th>
+                                            <th th:text="#{property.address}"></th>
+                                            <th th:text="#{property.city}"></th>
+                                            <th th:text="#{property.state}"></th>
+                                            <th th:text="#{property.zipcode}"></th>
+                                            <th th:text="#{property.email1}"></th>
+                                            <th th:text="#{property.email2}"></th>
+                                            <th th:text="#{property.phone-number}"></th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="property, cont : ${property}">
+                                            <td>[[${cont.count}]]</td>
+                                            <td th:text="${property.property_name}"></td>
+                                            <td th:text="${property.property_address}"></td>
+                                            <td th:text="${property.property_city}"></td>
+                                            <td th:text="${property.property_state}"></td>
+                                            <td th:text="${property.property_zipcode}"></td>
+                                            <td th:text="${property.property_email1}"></td>
+                                            <td th:text="${property.property_email2}"></td>
+                                            <td th:text="${property.property_phone}"></td>
+                                            <td>
+                                                <a class="btn btn-secondary" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/edit-property/} + ${property.id_property}">
+                                                    <i class="fas fa-angle-double-right">[[#{action.edit}]]</i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-dark" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/delete-property(id_property=${property.id_property})}">
+                                                    <i class="fas fa-angle-double-right">[[#{action.delete}]]</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${property == null or property.empty}">
+                                <span>[[#{action.list-empty}]]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

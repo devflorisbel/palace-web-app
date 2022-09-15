@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Unit</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="layout/template :: header"></header>
+        <h2 th:text="#{unit.form}"></h2>
+        <a th:href='@{/units}' th:text="#{action.return}"></a>
+        <br/>
+        <!-- form -->
+        <form th:action='@{/save-unit}' method="post" th:object='${unit}'>
+            <input type="hidden" name="id_unit" th:field='*{id_unit}'/>
+            <br/>
+
+            <label for="number" th:text="#{unit.number}"></label>
+            <input type="text" name="number" th:field='*{unit_number}'/>
+            <span th:if="${#fields.hasErrors('unit_number')}" th:errors="*{unit_number}">Error Number</span>
+            <br/>
+
+            <label for="address" th:text="#{unit.address}"></label>
+            <input type="text" name="address" th:field='*{unit_address}'/>
+            <span th:if="${#fields.hasErrors('unit_address')}" th:errors="*{unit_address}">Error Address</span>
+            <br/>
+
+            <label for="beds" th:text="#{unit.beds}"></label>
+            <input type="text" name="beds" th:field='*{unit_bath}'/>
+            <span th:if="${#fields.hasErrors('unit_bath')}" th:errors="*{unit_bath}">Error Beds</span>
+            <br/>
+            
+            <label for="baths" th:text="#{unit.baths}"></label>
+            <input type="text" name="baths" th:field='*{unit_bath}'/>
+            <span th:if="${#fields.hasErrors('unit_bath')}" th:errors="*{unit_bath}">Error Baths</span>
+            <br/>
+
+            <label for="property" th:text="#{unit.property}"></label>
+            <select th:field="*{id_property}">
+                <option th:each="property : ${property}" th:value="${property.id_property}" th:text="${property.property_name}">
+                </option>
+            </select>
+            <span th:if="${#fields.hasErrors('id_property')}" th:errors="*{id_property}">Error Property</span>
+            <br/>
+
+            <input type="submit" name="save" th:value="#{action.save}"/>
+        </form>
+        <footer th:replace="layout/template :: footer"></footer>
+
+    </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Add Buttons</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="returnPropertiesBtn" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a th:href="@{/properties}" class="btn btn-primary btn-block">
+                            <i class="fas fa-undo"></i> [[#{action.return}]]
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

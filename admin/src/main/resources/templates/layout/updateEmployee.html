@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Employee</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="updateEmployee" id="updateEmployee">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{employee.form}]]</h4>
+                            </div>
+                        </div>
+                        <form class="row g-3" th:action='@{/save}' method="post" th:object='${employee}'>
+                            <input type="hidden" name="idemployee" th:field='*{idemployee}'/>
+                            <div class="col-md-6">
+                                <label for="inputFirstname" th:text="#{employee.first-name}" class="form-label">First Name</label>
+                                <input type="text" name="firstname" th:field='*{firstname}' class="form-control" id="inputFirstname"/>
+                                <span th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Error First Name</span>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputLastname" th:text="#{employee.last-name}">Last Name</label>
+                                <input type="text" name="lastname" th:field='*{lastname}' class="form-control" id="inputLastname"/>
+                                <span th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Error Last Name</span>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" th:text="#{employee.address}" class="form-label">Address</label>
+                                <input type="text" name="address" th:field='*{address}' class="form-control" id="inputAddress" placeholder="Apartment, studio, or floor"/>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputCity" th:text="#{employee.city}" class="form-label">City</label>
+                                <input type="text" name="city" th:field='*{city}' class="form-control" id="inputCity"/>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputState" th:text="#{employee.state}" class="form-label"></label>
+                                <input type="text" name="st" th:field='*{st}' class="form-control"/>
+                                <span th:if="${#fields.hasErrors('st')}" th:errors="*{st}" id="inputState">Error State</span>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="inputZipcode" th:text="#{employee.zipcode}" class="form-label"></label>
+                                <input type="text" name="zipcode" th:field='*{zipcode}' class="form-control" id="inputZipcode"/>
+                                <span th:if="${#fields.hasErrors('zipcode')}" th:errors="*{zipcode}">Error Zip Code</span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputEmail" th:text="#{employee.email}" class="form-label"></label>
+                                <input type="text" name="email" th:field='*{email}' class="form-control" id="inputEmail"/>
+                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error email</span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputPhone" th:text="#{employee.phone-number}" class="form-label"></label>
+                                <input type="tel" name="phonenumber" th:field='*{phonenumber}' class="form-control" id="inputPhone"/>
+                                <span th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}">Error Phone Number</span>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="inputServicio" class="form-label">Service</label>
+                                <select th:field="*{id_service}" class="form-select">
+                                    <option th:each="servicio : ${servicio}" th:value="${servicio.id_service}" th:text="${servicio.service_name}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Admin Units</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <header th:replace="layout/template :: header"></header>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/add-unit}" th:text="#{unit.add}"></a>
+        <div th:if="${unit != null and !unit.empty}">
+            <table border="1">
+                <tr>
+                    <th th:text="#{unit.number}"></th>
+                    <th th:text="#{unit.address}"></th>
+                    <th th:text="#{unit.beds}"></th>
+                    <th th:text="#{unit.baths}"></th>
+                    <th th:text="#{unit.property}"></th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
+                </tr>
+                <tr th:each="unit : ${unit}">
+                    <td th:text="${unit.unit_number}"></td>
+                    <td th:text="${unit.unit_address}"></td>
+                    <td th:text="${unit.unit_bed}"></td>
+                    <td th:text="${unit.unit_bath}"></td>
+                    <td th:each="property : ${property}" th:if="${property.id_property == unit.id_property}"                     
+                        th:text="${property.property_name}"></td>
+                    <td><a th:href="@{/edit-unit/} + ${unit.id_unit}" th:text='Edit'/></td>
+                    <td><a th:href="@{/delete-unit(id_unit=${unit.id_unit})}" th:text='delete'/></td>
+                </tr>
+            </table>
+        </div>    
+
+        <footer th:replace="layout/template :: footer"></footer>
+
+    </body>
+</html>
