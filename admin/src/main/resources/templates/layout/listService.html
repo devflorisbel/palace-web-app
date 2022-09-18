@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>List of Service</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="listService" id="listService">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{bar.services}]]</h4>
+                            </div>
+                            <div th:if="${servicio != null and !servicio.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{service.name}"></th>
+                                            <th th:text="#{service.state}"></th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each='servicio, cont : ${servicio}'>
+                                            <td>[[${cont.count}]]</td>
+                                            <td th:text="${servicio.service_name}"></td>
+                                            <td th:text="${servicio.service_state}"></td>
+                                            <td>
+                                                <a class="btn btn-secondary" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/edit-service/} + ${servicio.id_service}">
+                                                    <i class="fas fa-angle-double-right">[[#{action.edit}]]</i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-dark" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/delete-service(id_service=${servicio.id_service})}">
+                                                    <i class="fas fa-angle-double-right">[[#{action.delete}]]</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${servicio == null or servicio.empty}">
+                                <span>[[#{action.list-empty}]]</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
