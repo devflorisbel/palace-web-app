@@ -7,12 +7,12 @@
         <meta charset="UTF-8"/>
     </head>
     <body>
-        <section th:fragment="addPropertyBtn" class="py-4 mb-4 bg-light">
+        <section th:fragment="returnUnitsBtn" class="py-4 mb-4 bg-light">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{/add-property}" class="btn btn-success btn-block">
-                            <i class="fas fa-plus"></i>[[#{action.add}]]
+                    <div class="col-md-3">
+                        <a th:href="@{/units}" class="btn btn-primary btn-block">
+                            <i class="fas fa-undo"></i> [[#{action.return}]]
                         </a>
                     </div>
                 </div>

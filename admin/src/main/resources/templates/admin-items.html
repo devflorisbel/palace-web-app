@@ -2,40 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-    <head>
+    <head th:replace="layout/template :: head">
         <title>Admin Items</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
         <header th:replace="layout/template :: header"></header>
-        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/add-item}" th:text="#{item.add}"></a>
-        <div th:if="${item != null and !item.empty}">
-            <table border="1">
-                <tr>
-                    <th th:text="#{item.name}"></th>
-                    <th th:text="#{item.description}"></th>
-                    <th th:text="#{item.rate}"></th>
-                    <th th:text="#{item.service}"></th>
-                    <th th:text="#{item.property}"></th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
-                    <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
-                </tr>
-                <tr th:each="item : ${item}">
-                    <td th:text="${item.item_name}"></td>
-                    <td th:text="${item.item_description}"></td>
-                    <td th:text="${item.item_rate}"></td>
-                    <td th:each="service : ${service}" th:if="${service.id_service == item.id_service}"                     
-                        th:text="${service.service_name}"></td>
-                    <td th:each="property : ${property}" th:if="${property.id_property == item.id_property}"                     
-                        th:text="${property.property_name}"></td>
-                    <td><a th:href="@{/edit-item/} + ${item.id_item}" th:text='Edit'/></td>
-                    <td><a th:href="@{/delete-item(id_item=${item.id_item})}" th:text='delete'/></td>
-                </tr>
-            </table>
-        </div>    
-
+        <section th:replace="layout/addItemBtn :: addItemBtn"></section>
+        <section th:replace="layout/listItems :: listItems"></section>
         <footer th:replace="layout/template :: footer"></footer>
-
     </body>
 </html>

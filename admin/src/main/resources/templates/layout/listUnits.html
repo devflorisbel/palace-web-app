@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Units</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="listUnits" id="listUnits">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{bar.units}]]</h4>
+                            </div>
+
+                        </div>
+                        <div th:if="${unit != null and !unit.empty}">
+                            <table class="table table-stryped" border="1">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th th:text="#{unit.number}"></th>
+                                        <th th:text="#{unit.address}"></th>
+                                        <th th:text="#{unit.beds}"></th>
+                                        <th th:text="#{unit.baths}"></th>
+                                        <th th:text="#{unit.property}"></th>
+                                        <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
+                                        <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="unit : ${unit}">
+                                        <td th:text="${unit.unit_number}"></td>
+                                        <td th:text="${unit.unit_address}"></td>
+                                        <td th:text="${unit.unit_bed}"></td>
+                                        <td th:text="${unit.unit_bath}"></td>
+                                        <td th:each="property : ${property}" th:if="${property.id_property == unit.id_property}"                     
+                                            th:text="${property.property_name}"></td>
+                                        <td><a th:href="@{/edit-unit/} + ${unit.id_unit}" th:text='Edit'/></td>
+                                        <td><a th:href="@{/delete-unit(id_unit=${unit.id_unit})}" th:text='delete'/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

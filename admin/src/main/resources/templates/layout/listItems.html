@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Admin Items</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="listItems" id="listItems">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{bar.items}]]</h4>
+                            </div>
+                            <div th:if="${item != null and !item.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{item.name}"></th>
+                                            <th th:text="#{item.description}"></th>
+                                            <th th:text="#{item.rate}"></th>
+                                            <th th:text="#{item.service}"></th>
+                                            <th th:text="#{item.property}"></th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item, cont : ${item}">
+                                            <td>[[${cont.count}]]</td>
+                                            <td th:text="${item.item_name}"></td>
+                                            <td th:text="${item.item_description}"></td>
+                                            <td th:text="${item.item_rate}"></td>
+                                            <td th:each="service : ${service}" th:if="${service.id_service == item.id_service}"                     
+                                                th:text="${service.service_name}"></td>
+                                            <td th:each="property : ${property}" th:if="${property.id_property == item.id_property}"                     
+                                                th:text="${property.property_name}"></td>
+                                            <td><a class="btn btn-secondary" th:href="@{/edit-item/} + ${item.id_item}" th:text='Edit'/></td>
+                                            <td><a class="btn btn-dark" th:href="@{/delete-item(id_item=${item.id_item})}" th:text='delete'/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

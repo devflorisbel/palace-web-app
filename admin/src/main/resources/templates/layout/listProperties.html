@@ -20,7 +20,6 @@
                                 <table class="table table-stryped">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>#</th>
                                             <th th:text="#{property.name}"></th>
                                             <th th:text="#{property.address}"></th>
                                             <th th:text="#{property.city}"></th>
@@ -31,11 +30,11 @@
                                             <th th:text="#{property.phone-number}"></th>
                                             <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.edit}"></th>
                                             <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.delete}"></th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')" th:text="#{action.create}"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="property, cont : ${property}">
-                                            <td>[[${cont.count}]]</td>
+                                        <tr th:each="property : ${property}">
                                             <td th:text="${property.property_name}"></td>
                                             <td th:text="${property.property_address}"></td>
                                             <td th:text="${property.property_city}"></td>
@@ -52,6 +51,11 @@
                                             <td>
                                                 <a class="btn btn-dark" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/delete-property(id_property=${property.id_property})}">
                                                     <i class="fas fa-angle-double-right">[[#{action.delete}]]</i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-dark" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/add-orden/} + ${property.id_property}">
+                                                    <i class="fas fa-angle-double-right">[[#{action.create}]]</i>
                                                 </a>
                                             </td>
                                         </tr>

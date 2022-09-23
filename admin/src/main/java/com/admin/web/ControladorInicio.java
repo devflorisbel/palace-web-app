@@ -42,14 +42,13 @@ public class ControladorInicio {
 
     @Autowired
     private ItemService itemService;
-    
+
     @Autowired
     private UnitService unitService;
-    
+
     @Autowired
     private OrdenService ordenService;
-    
-   
+
     //dashboard palace
     @GetMapping("/")
     public String inicio(Model model, @AuthenticationPrincipal User user) {
@@ -190,6 +189,9 @@ public class ControladorInicio {
         //consultar property
         var property = propertyService.findAllProperties();
         model.addAttribute("property", property);
+        //consultar service
+        var servicio = servicioService.findAllServicios();
+        model.addAttribute("servicio", servicio);
         return "update-item";
     }
 
@@ -209,6 +211,9 @@ public class ControladorInicio {
         //consultar property
         var property = propertyService.findAllProperties();
         model.addAttribute("property", property);
+        //consultar service
+        var servicio = servicioService.findAllServicios();
+        model.addAttribute("servicio", servicio);
         return "update-item";
     }
 
@@ -217,7 +222,7 @@ public class ControladorInicio {
         itemService.delete(item);
         return "redirect:/items";
     }
-    
+
     //units administration
     @GetMapping("/units")
     public String units(Model model) {
@@ -261,7 +266,7 @@ public class ControladorInicio {
         unitService.delete(unit);
         return "redirect:/units";
     }
-    
+
     //ordenes administration
     @GetMapping("/ordenes")
     public String ordenes(Model model) {
@@ -274,18 +279,20 @@ public class ControladorInicio {
         var unit = unitService.findAllUnits();
         model.addAttribute("unit", unit);
         return "admin-ordenes";
-        
-    }
-    
-    @GetMapping("/create-orden")
-    public String createOrden(Orden orden, Model model) {
-        //consultar property
-        var property = propertyService.findAllProperties();
-        model.addAttribute("property", property);
-        return "create-orden";
+
     }
 
-    
+    @GetMapping("/add-orden/{id_property}")
+    public String addOrden(Orden orden, Property property, Model model) {
+        //consultar propiedad
+        property = propertyService.findProperty(property);
+        model.addAttribute("property", property);
+        //consultar unit
+        var unit = unitService.findAllUnits();
+        model.addAttribute("unit", unit);
+        return "update-orden";
+    }
+
     @PostMapping("/save-orden")
     public String saveOrden(@Valid Orden orden, Errors errores) {
         if (errores.hasErrors()) {
@@ -313,6 +320,5 @@ public class ControladorInicio {
         ordenService.delete(orden);
         return "redirect:/ordenes";
     }
-    
 
 }

@@ -9,17 +9,7 @@
     </head>
     <body>
         <header th:replace="layout/template :: header"></header>
-        <section class="py-4 mb-4 bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <a class="btn btn-primary btn-block" sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/add-service}" th:text="#{service.add}">
-                            <i class="fas fa-plus"></i>[[#{action.add}]]
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section th:replace="layout/addServiceBtn :: addServiceBtn"></section>
         <section th:replace="layout/listService :: listService"></section>
         <footer th:replace="layout/template :: footer"></footer>
     </body>

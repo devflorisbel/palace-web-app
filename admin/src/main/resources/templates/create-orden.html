@@ -16,14 +16,12 @@
             <input type="hidden" name="id_orden" th:field='*{id_orden}'/>
             <br/>
             
-            
             <label for="property" th:text="#{orden.property}"></label>
             <select th:field="*{id_property}">
                 <option th:each="property : ${property}" th:value="${property.id_property}" th:text="${property.property_name}">
                 </option>
             </select>
             <span th:if="${#fields.hasErrors('id_property')}" th:errors="*{id_property}">Error Property</span>
-            <br/>
             <br/>
 
             <label for="po" th:text="#{orden.po}"></label>
@@ -64,10 +62,7 @@
 
 
         <footer th:replace="layout/template :: footer"></footer>
-        
-        <!<!-- <input type="hidden" name="id_orden" th:field='*{id_orden}'/>
-            <br/>
-             -->
+       
 
     </body>
 </html>

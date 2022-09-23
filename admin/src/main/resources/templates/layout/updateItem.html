@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Item</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="updateItem" id="updateItem">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{item.form}]]</h4>
+                            </div>
+                        </div>
+                        <!-- form -->
+                        <form th:action='@{/save-item}' method="post" th:object='${item}'>
+                            <input type="hidden" name="id_item" th:field='*{id_item}'/>
+
+                            <label class="form-label" for="name" th:text="#{item.name}"></label>
+                            <input class="form-control" type="text" name="name" th:field='*{item_name}'/>
+                            <span th:if="${#fields.hasErrors('item_name')}" th:errors="*{item_name}">Error Name</span>
+
+                            <label class="form-label" for="description" th:text="#{item.description}"></label>
+                            <input class="form-control" type="text" name="description" th:field='*{item_description}'/>
+                            <span th:if="${#fields.hasErrors('item_description')}" th:errors="*{item_description}">Error Description</span>
+
+                            <label class="form-label" for="rate" th:text="#{item.rate}"></label>
+                            <input class="form-control" type="text" name="rate" th:field='*{item_rate}'/>
+                            <span th:if="${#fields.hasErrors('item_rate')}" th:errors="*{item_rate}">Error Rate</span>
+
+                            <label for="inputServicio" class="form-label">Service</label>
+                            <select th:field="*{id_service}" class="form-select">
+                                <option class="form-control" th:each="servicio : ${servicio}" th:value="${servicio.id_service}" th:text="${servicio.service_name}">
+                                </option>
+                            </select>
+
+                            <label class="form-label" for="property" th:text="#{item.property}"></label>
+                            <select class="form-select" th:field="*{id_property}">
+                                <option class="form-control" th:each="property : ${property}" th:value="${property.id_property}" th:text="${property.property_name}">
+                                </option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('id_property')}" th:errors="*{id_property}">Error Property</span>
+
+                            <input class="btn btn-primary" type="submit" name="save" th:value="#{action.save}"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
